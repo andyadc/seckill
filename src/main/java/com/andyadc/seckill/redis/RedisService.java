@@ -80,6 +80,36 @@ public class RedisService {
         }
     }
 
+    public boolean del(KeyPrefix prefix, String key) {
+        Jedis jedis = null;
+        try {
+            jedis = jedisPool.getResource();
+            return jedis.del(prefix.prefix() + key) > 0L;
+        } finally {
+            returnToPool(jedis);
+        }
+    }
+
+    public Long incr(KeyPrefix prefix, String key) {
+        Jedis jedis = null;
+        try {
+            jedis = jedisPool.getResource();
+            return jedis.incr(prefix.prefix() + key);
+        } finally {
+            returnToPool(jedis);
+        }
+    }
+
+    public Long decr(KeyPrefix prefix, String key) {
+        Jedis jedis = null;
+        try {
+            jedis = jedisPool.getResource();
+            return jedis.decr(prefix.prefix() + key);
+        } finally {
+            returnToPool(jedis);
+        }
+    }
+
     private void returnToPool(Jedis jedis) {
         if (jedis != null) {
             jedis.close();
