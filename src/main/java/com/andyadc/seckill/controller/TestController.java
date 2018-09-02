@@ -1,6 +1,7 @@
 package com.andyadc.seckill.controller;
 
 import com.andyadc.seckill.redis.RedisService;
+import com.andyadc.seckill.redis.UserKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,13 +20,14 @@ public class TestController {
     private RedisService redisService;
 
     @RequestMapping("/redis/set")
-    public String set(HttpServletRequest request) {
-        return redisService.set(request.getParameter("key"),
+    public Object set(HttpServletRequest request) {
+        return redisService.set(UserKey.idKey,
+                request.getParameter("key"),
                 request.getParameter("value"));
     }
 
     @RequestMapping("/redis/get")
     public String get(HttpServletRequest request) {
-        return redisService.get(request.getParameter("key"));
+        return redisService.get(UserKey.idKey, request.getParameter("key"));
     }
 }
