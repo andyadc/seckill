@@ -70,6 +70,18 @@ public class RedisService {
         }
     }
 
+    public <T> boolean setX(KeyPrefix prefix, String key, T t) {
+        Jedis jedis = null;
+        try {
+            jedis = jedisPool.getResource();
+            String value = JSON.toJSONString(t);
+            key = prefix.prefix() + key;
+            return OK.equals(jedis.set(key, value, "NX", "PX", prefix.expire()));
+        } finally {
+            returnToPool(jedis);
+        }
+    }
+
     public boolean exists(KeyPrefix prefix, String key) {
         Jedis jedis = null;
         try {
