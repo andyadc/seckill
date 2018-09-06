@@ -23,12 +23,12 @@
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!-- rollover daily -->
             <fileNamePattern>
-                ${LOG_PATH}/${APP_NAME}_%d{yyyy-MM-dd}-%i.log
+                ${LOG_PATH}/${APP_NAME}_%d{yyyy-MM-dd}.%i.log
             </fileNamePattern>
-            <!-- each file should be at most 10MB, keep 60 days worth of history, but at most 20GB -->
+            <!-- each file should be at most [x] MB, keep [x] days worth of history, but at most [x] GB -->
             <maxHistory>30</maxHistory>
-            <maxFileSize>10MB</maxFileSize>
-            <totalSizeCap>20GB</totalSizeCap>
+            <maxFileSize>1MB</maxFileSize>
+            <totalSizeCap>10GB</totalSizeCap>
         </rollingPolicy>
 
         <encoder>
