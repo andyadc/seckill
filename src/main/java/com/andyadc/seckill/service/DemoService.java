@@ -26,7 +26,6 @@ public class DemoService {
         demo.setBirthday(new Date());
         demo.setUpdatedTime(new Date());
         demoMapper.insertSelective(demo);
-        int i = 1 / 0;
         demoMapper.insertSelective(demo);
     }
 }
