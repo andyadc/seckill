@@ -13,30 +13,24 @@
         <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
         <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime"/>
     </resultMap>
+
     <sql id="Base_Column_List">
         id, nickname, username, `password`, salt, `status`, deleted, last_login_time, created_time,
         updated_time
     </sql>
+
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from user
         where id = #{id,jdbcType=BIGINT}
     </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from user
         where id = #{id,jdbcType=BIGINT}
     </delete>
-    <insert id="insert" parameterType="com.andyadc.seckill.entity.User">
-        insert into user (id, nickname, username,
-        `password`, salt, `status`,
-        deleted, last_login_time, created_time,
-        updated_time)
-        values (#{id,jdbcType=BIGINT}, #{nickname,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR},
-        #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
-        #{deleted,jdbcType=INTEGER}, #{lastLoginTime,jdbcType=TIMESTAMP}, #{createdTime,jdbcType=TIMESTAMP},
-        #{updatedTime,jdbcType=TIMESTAMP})
-    </insert>
+
     <insert id="insertSelective" parameterType="com.andyadc.seckill.entity.User">
         insert into user
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -96,6 +90,7 @@
             </if>
         </trim>
     </insert>
+
     <update id="updateByPrimaryKeySelective" parameterType="com.andyadc.seckill.entity.User">
         update user
         <set>
@@ -129,6 +124,7 @@
         </set>
         where id = #{id,jdbcType=BIGINT}
     </update>
+
     <update id="updateByPrimaryKey" parameterType="com.andyadc.seckill.entity.User">
         update user
         set nickname = #{nickname,jdbcType=VARCHAR},
