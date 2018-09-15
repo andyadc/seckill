@@ -6,6 +6,8 @@ package com.andyadc.seckill.redis;
  */
 public abstract class BasePrefix implements KeyPrefix {
 
+    private static final String BASE_PREFIX = "seckill";
+
     private String prefix;
     private int expire;
 
@@ -20,11 +22,13 @@ public abstract class BasePrefix implements KeyPrefix {
 
     @Override
     public String prefix() {
-        return getClass().getSimpleName().toLowerCase() + ":" + prefix + ":";
+        return BASE_PREFIX + (category() == null ? "" : (":" + category())) + ":" + prefix + ":";
     }
 
     @Override
     public int expire() {
         return expire;
     }
+
+    protected abstract String category();
 }

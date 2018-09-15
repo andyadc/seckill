@@ -16,4 +16,9 @@ public class UserKey extends BasePrefix {
     public UserKey(String prefix, int expire) {
         super(prefix, expire);
     }
+
+    @Override
+    protected String category() {
+        return "user";
+    }
 }
