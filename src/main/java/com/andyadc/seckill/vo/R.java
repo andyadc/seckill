@@ -1,20 +1,20 @@
-package com.andyadc.seckill.result;
+package com.andyadc.seckill.vo;
 
 /**
  * @author andy.an
  * @since 2018/8/27
  */
-public class Result<T> {
+public class R<T> {
 
-    private int code;
+    private String code;
     private String message;
     private T data;
 
-    public int getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
@@ -36,7 +36,7 @@ public class Result<T> {
 
     @Override
     public String toString() {
-        return "Result{" +
+        return "R{" +
                 "code=" + code +
                 ", message=" + message +
                 ", data=" + data +
