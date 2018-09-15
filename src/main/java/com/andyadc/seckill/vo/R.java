@@ -10,6 +10,20 @@ public class R<T> {
     private String message;
     private T data;
 
+    public R() {
+    }
+
+    public R(String code, String message) {
+        this.code = code;
+        this.message = message;
+    }
+
+    public R(String code, String message, T data) {
+        this.code = code;
+        this.message = message;
+        this.data = data;
+    }
+
     public String getCode() {
         return code;
     }

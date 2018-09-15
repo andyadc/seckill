@@ -1,5 +1,6 @@
 package com.andyadc.seckill.controller;
 
+import com.andyadc.seckill.exception.SeckillException;
 import com.andyadc.seckill.redis.RedisService;
 import com.andyadc.seckill.redis.UserKey;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,16 @@ public class TestController {
 
     @Autowired
     private RedisService redisService;
+
+    @RequestMapping("/ex/sys")
+    public Object sysEx() {
+        return 1 / 0;
+    }
+
+    @RequestMapping("/ex/sec")
+    public Object sysSec() {
+        throw new SeckillException("123", "Params error");
+    }
 
     @RequestMapping("/redis/set")
     public Object set(HttpServletRequest request) {
