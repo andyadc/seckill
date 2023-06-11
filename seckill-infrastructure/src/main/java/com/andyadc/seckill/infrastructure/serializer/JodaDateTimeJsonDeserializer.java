@@ -9,10 +9,10 @@ import org.joda.time.format.DateTimeFormatter;
 
 import java.io.IOException;
 
-public class JodaDateTimeJsonDeserializer extends JsonDeserializer {
+public class JodaDateTimeJsonDeserializer extends JsonDeserializer<DateTime> {
 
     @Override
-    public Object deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
+    public DateTime deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
         String dataString = jsonParser.readValueAs(String.class);
         DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
         return DateTime.parse(dataString, formatter);

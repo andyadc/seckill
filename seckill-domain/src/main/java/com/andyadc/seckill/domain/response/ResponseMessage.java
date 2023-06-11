@@ -4,29 +4,39 @@ import java.io.Serializable;
 
 public class ResponseMessage<T> implements Serializable {
 
-    private static final long serialVersionUID = -5549029732898684868L;
+    private static final long serialVersionUID = -1771704121799168969L;
 
-    private Integer code;
+    private String code;
+    private String message;
     private T data;
 
     public ResponseMessage() {
     }
 
-    public ResponseMessage(Integer code, T data) {
+    public ResponseMessage(String code, String message, T data) {
         this.code = code;
+        this.message = message;
         this.data = data;
     }
 
-    public ResponseMessage(Integer code) {
+    public ResponseMessage(String code) {
         this.code = code;
     }
 
-    public Integer getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(Integer code) {
+    public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public T getData() {

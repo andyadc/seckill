@@ -6,26 +6,26 @@ public class SeckillException extends RuntimeException {
 
     private static final long serialVersionUID = -8025850198256006923L;
 
-    private Integer code;
+    private String code;
 
     public SeckillException(String message) {
         super(message);
     }
 
     public SeckillException(HttpCode errorCode) {
-        this(errorCode.getCode(), errorCode.getMesaage());
+        this(errorCode.getCode() + "", errorCode.getMesaage());
     }
 
-    public SeckillException(Integer code, String messgae) {
+    public SeckillException(String code, String messgae) {
         super(messgae);
         this.code = code;
     }
 
-    public Integer getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(Integer code) {
+    public void setCode(String code) {
         this.code = code;
     }
 }
