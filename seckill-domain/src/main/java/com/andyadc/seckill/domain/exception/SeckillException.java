@@ -9,11 +9,11 @@ public class SeckillException extends RuntimeException {
     private String code;
 
     public SeckillException(ErrorCode errorCode) {
-        this(errorCode.getCode(), errorCode.getMesaage());
+        this(errorCode.code(), errorCode.message());
     }
 
     public SeckillException(ErrorCode errorCode, Throwable cause) {
-        this(errorCode.getCode(), errorCode.getMesaage(), cause);
+        this(errorCode.code(), errorCode.message(), cause);
     }
 
     public SeckillException(String code, String messgae) {

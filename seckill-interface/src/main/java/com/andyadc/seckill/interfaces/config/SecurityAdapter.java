@@ -13,7 +13,7 @@ public class SecurityAdapter implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(authInterceptor).addPathPatterns("/**").excludePathPatterns("/user/login");
+        registry.addInterceptor(authInterceptor).addPathPatterns("/**");
     }
 
     @Autowired

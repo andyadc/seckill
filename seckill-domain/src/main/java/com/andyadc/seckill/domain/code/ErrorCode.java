@@ -27,11 +27,11 @@ public enum ErrorCode {
         this.mesaage = mesaage;
     }
 
-    public String getCode() {
+    public String code() {
         return code;
     }
 
-    public String getMesaage() {
+    public String message() {
         return mesaage;
     }
 }

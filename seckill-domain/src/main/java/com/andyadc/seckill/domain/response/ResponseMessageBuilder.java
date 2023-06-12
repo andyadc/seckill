@@ -1,7 +1,5 @@
 package com.andyadc.seckill.domain.response;
 
-import com.andyadc.seckill.domain.code.ResponseCode;
-
 public final class ResponseMessageBuilder {
 
     public static <T> ResponseMessage<T> success(T body) {

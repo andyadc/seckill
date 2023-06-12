@@ -1,6 +1,6 @@
 package com.andyadc.seckill.interfaces.interceptor;
 
-import com.andyadc.seckill.domain.code.ResponseCode;
+import com.andyadc.seckill.domain.code.ErrorCode;
 import com.andyadc.seckill.domain.dto.SigninUserDTO;
 import com.andyadc.seckill.domain.response.ResponseMessage;
 import com.andyadc.seckill.domain.response.ResponseMessageBuilder;
@@ -72,7 +72,7 @@ public class AuthInterceptor implements HandlerInterceptor {
         response.setCharacterEncoding(StandardCharsets.UTF_8.name());
 
         PrintWriter writer = response.getWriter();
-        ResponseMessage<Object> message = ResponseMessageBuilder.build(ResponseCode.USER_NOT_LOGIN.code(), ResponseCode.USER_NOT_LOGIN.mesaage());
+        ResponseMessage<Object> message = ResponseMessageBuilder.build(ErrorCode.USER_NOT_LOGIN.code(), ErrorCode.USER_NOT_LOGIN.message());
         writer.write(JsonUtil.toJsonString(message));
         writer.flush();
         writer.close();

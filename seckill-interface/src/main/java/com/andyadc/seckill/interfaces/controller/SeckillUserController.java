@@ -30,8 +30,8 @@ public class SeckillUserController {
     }
 
     @RequestMapping(value = "/signup", method = {RequestMethod.GET, RequestMethod.POST})
-    public ResponseMessage<SeckillUser> signup(@RequestParam(value = "username") String username) {
-        return ResponseMessageBuilder.success(seckillUserService.getSeckillUserByUsername(username));
+    public ResponseMessage<Boolean> signup(@RequestBody SeckillUserDTO seckillUserDTO) {
+        return ResponseMessageBuilder.success(seckillUserService.signup(seckillUserDTO));
     }
 
     @RequestMapping(value = "/signout", method = {RequestMethod.GET, RequestMethod.POST})
