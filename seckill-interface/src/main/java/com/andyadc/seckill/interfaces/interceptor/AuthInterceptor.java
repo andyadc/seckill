@@ -1,8 +1,18 @@
 package com.andyadc.seckill.interfaces.interceptor;
 
+import com.andyadc.seckill.domain.code.ResponseCode;
+import com.andyadc.seckill.domain.dto.SigninUserDTO;
+import com.andyadc.seckill.domain.response.ResponseMessage;
+import com.andyadc.seckill.domain.response.ResponseMessageBuilder;
+import com.andyadc.seckill.infrastructure.cache.CacheManager;
+import com.andyadc.seckill.infrastructure.utils.IPUtil;
+import com.andyadc.seckill.infrastructure.utils.JsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -10,6 +20,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -20,9 +33,17 @@ public class AuthInterceptor implements HandlerInterceptor {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthInterceptor.class);
 
+    private CacheManager cacheManager;
+
+    @Value("#{'${auth.exclude.uri}'.split(',')}")
+    private List<String> authExcludeUrl;
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        logger.info(">>> {}", request.getRequestURI());
+        String ip = IPUtil.getRemoteIP(request);
+        String requestURI = request.getRequestURI();
+        logger.info("Accessing [{}] through IP [{}]", requestURI, ip);
+
         String requestId = request.getHeader("requestId");
         if (!StringUtils.hasLength(requestId)) {
             requestId = UUID.randomUUID().toString().replace("-", "");
@@ -30,11 +51,31 @@ public class AuthInterceptor implements HandlerInterceptor {
         MDC.put("traceId", requestId);
         response.setHeader("requestId", requestId);
 
-        String token = request.getHeader("token");
-        if (!StringUtils.hasLength(token)) {
-            return true;
+        for (String uri : authExcludeUrl) {
+            if (requestURI.contains(uri)) {
+                return true;
+            }
         }
-        return true;
+
+        String token = request.getHeader("token");
+        if (StringUtils.hasLength(token)) {
+            SigninUserDTO userDTO = cacheManager.getSigninUserCache(token);
+            if (userDTO != null) {
+                return true;
+            }
+        }
+
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+
+        PrintWriter writer = response.getWriter();
+        ResponseMessage<Object> message = ResponseMessageBuilder.build(ResponseCode.USER_NOT_LOGIN.code(), ResponseCode.USER_NOT_LOGIN.mesaage());
+        writer.write(JsonUtil.toJsonString(message));
+        writer.flush();
+        writer.close();
+
+        return false;
     }
 
     @Override
@@ -44,5 +85,10 @@ public class AuthInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         MDC.clear();
+    }
+
+    @Autowired
+    public void setCacheManager(CacheManager cacheManager) {
+        this.cacheManager = cacheManager;
     }
 }

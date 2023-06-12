@@ -8,4 +8,8 @@ import org.apache.ibatis.annotations.Param;
 public interface SeckillUserMapper {
 
     SeckillUser getSeckillUserByUserName(@Param("username") String username);
+
+    int insert(SeckillUser record);
+
+    int insertOrUpdate(SeckillUser record);
 }

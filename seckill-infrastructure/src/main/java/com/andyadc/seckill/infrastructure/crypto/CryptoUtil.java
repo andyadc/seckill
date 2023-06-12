@@ -8,7 +8,7 @@ import org.apache.shiro.util.ByteSource;
 /**
  * https://blog.swierczynski.net/2013/01/strong-passwords-hashing-wtih-apache-shiro
  */
-public class CryptoTests {
+public class CryptoUtil {
 
     private static final int hashIterations = 2;
 
@@ -56,11 +56,5 @@ public class CryptoTests {
 
     private static String hashAndSaltPassword(String clearTextPassword, ByteSource salt) {
         return new Sha512Hash(clearTextPassword, salt, hashIterations).toHex();
-    }
-
-    public void hashPassword(String clearTextPassword) {
-        ByteSource salt = getSalt();
-        String hash = hashAndSaltPassword(clearTextPassword, salt);
-        // persist salt and hash or return them to delegate this task to other component
     }
 }
