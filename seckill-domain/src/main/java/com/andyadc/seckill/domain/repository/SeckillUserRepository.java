@@ -5,4 +5,6 @@ import com.andyadc.seckill.domain.model.SeckillUser;
 public interface SeckillUserRepository {
 
     SeckillUser getSeckillUserByUsername(String username);
+
+    SeckillUser insert(SeckillUser seckillUser);
 }
