@@ -5,6 +5,7 @@ import com.andyadc.seckill.domain.dto.SigninUserDTO;
 import com.andyadc.seckill.domain.response.ResponseMessage;
 import com.andyadc.seckill.domain.response.ResponseMessageBuilder;
 import com.andyadc.seckill.infrastructure.cache.CacheManager;
+import com.andyadc.seckill.infrastructure.context.AuthUserContext;
 import com.andyadc.seckill.infrastructure.utils.IPUtil;
 import com.andyadc.seckill.infrastructure.utils.JsonUtil;
 import org.slf4j.Logger;
@@ -61,6 +62,7 @@ public class AuthInterceptor implements HandlerInterceptor {
         if (StringUtils.hasLength(token)) {
             SigninUserDTO userDTO = cacheManager.getSigninUserCache(token);
             if (userDTO != null) {
+                AuthUserContext.set(userDTO.getUserId());
                 return true;
             }
         }
@@ -85,6 +87,7 @@ public class AuthInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         MDC.clear();
+        AuthUserContext.clear();
     }
 
     @Autowired
