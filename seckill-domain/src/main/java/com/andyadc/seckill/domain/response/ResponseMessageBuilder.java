@@ -1,9 +1,11 @@
 package com.andyadc.seckill.domain.response;
 
+import com.andyadc.seckill.domain.code.ErrorCode;
+
 public final class ResponseMessageBuilder {
 
     public static <T> ResponseMessage<T> success(T body) {
-        return build(ResponseCode.SUCCESS.code(), ResponseCode.SUCCESS.mesaage(), body);
+        return build(ErrorCode.SUCCESS.code(), ErrorCode.SUCCESS.message(), body);
     }
 
     public static <T> ResponseMessage<T> build(String code, String message) {

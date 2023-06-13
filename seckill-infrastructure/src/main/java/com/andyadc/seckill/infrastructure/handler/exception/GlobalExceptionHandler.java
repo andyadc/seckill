@@ -25,6 +25,6 @@ public class GlobalExceptionHandler {
     public ResponseMessage<String> handleException(Exception e) {
         logger.error("server error", e);
         Throwable rootCause = Throwables.getRootCause(e);
-        return ResponseMessageBuilder.build(ErrorCode.SERVER_EXCEPTION.getCode() + "", rootCause.getMessage());
+        return ResponseMessageBuilder.build(ErrorCode.SERVER_EXCEPTION.code() + "", rootCause.getMessage());
     }
 }
