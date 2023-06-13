@@ -6,7 +6,6 @@ import com.andyadc.seckill.domain.response.ResponseMessage;
 import com.andyadc.seckill.domain.response.ResponseMessageBuilder;
 import com.andyadc.seckill.infrastructure.cache.CacheManager;
 import com.andyadc.seckill.infrastructure.context.AuthUserContext;
-import com.andyadc.seckill.infrastructure.utils.IPUtil;
 import com.andyadc.seckill.infrastructure.utils.JsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,10 +40,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String ip = IPUtil.getRemoteIP(request);
         String requestURI = request.getRequestURI();
-        logger.info("Accessing [{}] through IP [{}]", requestURI, ip);
-
         String requestId = request.getHeader("requestId");
         if (!StringUtils.hasLength(requestId)) {
             requestId = UUID.randomUUID().toString().replace("-", "");
