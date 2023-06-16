@@ -50,6 +50,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 
         for (String uri : authExcludeUrl) {
             if (requestURI.contains(uri)) {
+                logger.info("{} in exclude Urls", uri);
                 return true;
             }
         }
