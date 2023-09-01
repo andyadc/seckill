@@ -20,6 +20,7 @@
     </description>
 
     <modules>
+        <module>seckill-common</module>
         <module>seckill-domain</module>
         <module>seckill-infrastructure</module>
         <module>seckill-application</module>
