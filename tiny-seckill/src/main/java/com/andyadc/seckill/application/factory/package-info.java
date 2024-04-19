@@ -1,0 +1,1 @@
+package com.andyadc.seckill.application.factory;
