@@ -1,1 +1,0 @@
-package com.andyadc.seckill.domain.activity.model;

@@ -12,7 +12,6 @@
         <module>base</module>
         <module>seckill-bom</module>
         <module>seckill-parent</module>
-        <module>tiny-seckill</module>
         <module>seckill-activity</module>
         <module>seckill-goods</module>
         <module>seckill-user</module>
