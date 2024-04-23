@@ -38,6 +38,13 @@
                 <scope>import</scope>
             </dependency>
 
+            <!-- common -->
+            <dependency>
+                <groupId>com.andyadc.seckill</groupId>
+                <artifactId>seckill-common</artifactId>
+                <version>1.0.0</version>
+            </dependency>
+
             <!-- base -->
             <dependency>
                 <groupId>com.andyadc.dddframework</groupId>
