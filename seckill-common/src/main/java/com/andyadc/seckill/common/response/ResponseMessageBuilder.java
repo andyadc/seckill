@@ -1,6 +1,6 @@
 package com.andyadc.seckill.common.response;
 
-import com.andyadc.seckill.domain.code.ErrorCode;
+import com.andyadc.seckill.common.ErrorCode;
 
 public final class ResponseMessageBuilder {
 
