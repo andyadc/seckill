@@ -1,0 +1,1 @@
+package com.andyadc.seckill.goods.infrastructure.repository;
